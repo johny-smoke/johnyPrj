@@ -1,6 +1,9 @@
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class IndexStorageTest {
 
     @Test
@@ -19,6 +22,24 @@ public class IndexStorageTest {
         for (int i = 0; i < indxs.size(); i++){
             Assertions.assertEquals(expIndxReverse[i], actIndxReverse[i]);
         }
+    }
+
+    @Test
+    public void testIndxCheck1() throws IndexOutOfBoundsException {
+        IndexStorage indxs = new IndexStorage(5);
+        Throwable thrown = assertThrows(IndexOutOfBoundsException.class, () -> {
+            int actGet = indxs.get(10);
+        });
+        assertNotNull(thrown.getMessage());
+    }
+
+    @Test
+    public void testIndxCheck2() throws IndexOutOfBoundsException {
+        IndexStorage indxs = new IndexStorage(5);
+        Throwable thrown = assertThrows(IndexOutOfBoundsException.class, () -> {
+            int actGet = indxs.get(-1);
+        });
+        assertNotNull(thrown.getMessage());
     }
 
     @Test
